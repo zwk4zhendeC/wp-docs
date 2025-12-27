@@ -4,7 +4,7 @@
 
 ## 概述
 
-数据源（Source）是 warp-flow 系统的数据输入端，负责从各种数据源接收数据并输入到处理流程中。
+数据源（Source）是 warp parse 系统的数据输入端，负责从各种数据源接收数据并输入到处理流程中。
 
 ## 核心概念
 
@@ -14,7 +14,6 @@
 - **File Connector**: 从文件读取数据
 - **Kafka Connector**: 从 Kafka 消息队列消费数据
 - **Syslog Connector**: 接收 Syslog 协议数据
-- **HTTP Connector**: 通过 HTTP 接收数据
 - **TCP/UDP Connector**: 通过网络套接字接收数据
 
 ### 2. 配置结构

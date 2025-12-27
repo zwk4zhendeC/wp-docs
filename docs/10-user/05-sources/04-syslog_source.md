@@ -23,7 +23,7 @@ port = 1514
 protocol = "udp"
 header_mode = "parse"
 prefer_newline = false
-tcp_recv_bytes = 10485760
+tcp_recv_bytes = 256000 
 ```
 
 ### TCP Syslog 连接器
@@ -41,26 +41,9 @@ port = 1514
 protocol = "tcp"
 header_mode = "parse"
 prefer_newline = false
-tcp_recv_bytes = 10485760
+tcp_recv_bytes = 256000
 ```
 
-### 高性能 Syslog 连接器
-
-```toml
-# connectors/source.d/syslog_high_perf.toml
-[[connectors]]
-id = "syslog_high_perf"
-type = "syslog"
-allow_override = ["addr", "port", "protocol", "header_mode", "prefer_newline", "tcp_recv_bytes"]
-
-[connectors.params]
-addr = "0.0.0.0"
-port = 1514
-protocol = "tcp"
-header_mode = "parse"
-prefer_newline = true
-tcp_recv_bytes = 104857600  # 100MB 缓冲区
-```
 
 ## 支持的参数
 
@@ -168,7 +151,6 @@ prefer_newline = true
 enable = true
 key = "syslog_udp_collector"
 connect = "syslog_udp_src"
-tags = ["protocol:udp", "type:collector", "tier:edge"]
 
 [sources.params_override]
 addr = "0.0.0.0"
@@ -181,7 +163,6 @@ prefer_newline = false
 enable = true
 key = "syslog_tcp_aggregator"
 connect = "syslog_tcp_src"
-tags = ["protocol:tcp", "type:aggregator", "tier:core"]
 
 [sources.params_override]
 addr = "127.0.0.1"
@@ -189,24 +170,7 @@ port = 1515
 protocol = "tcp"
 process_header = true
 prefer_newline = true
-tcp_recv_bytes = 104857600
-```
-
-### 开发环境配置
-```toml
-# wpsrc.toml
-[[sources]]
-enable = true
-key = "dev_syslog"
-connect = "syslog_udp_src"
-tags = ["env:development", "team:backend"]
-
-[sources.params_override]
-addr = "127.0.0.1"
-port = 1514
-protocol = "udp"
-process_header = false
-prefer_newline = false
+tcp_recv_bytes = 1048576
 ```
 
 ## 数据处理特性
@@ -282,7 +246,7 @@ protocol = "tcp"
 ### 2. 缓冲区优化
 ```toml
 # 高流量环境
-tcp_recv_bytes = 104857600  # 100MB
+tcp_recv_bytes = 10485760  # 10MB
 
 # 低内存环境
 tcp_recv_bytes = 1048576    # 1MB
@@ -299,30 +263,8 @@ header_mode = "parse"         # 解析并注入协议相关元信息
 prefer_newline = false        # 混合/长度前缀较多时保持默认顺序
 ```
 
-升级说明（Breaking）
-- 移除：`strip_header`、`attach_meta_tags`、`process_header`；改用 `header_mode`（`keep|strip|parse`）。
-
 ## 集成配置
 
-### 与 Rsyslog 集成
-```bash
-# /etc/rsyslog.d/99-warpflow.conf
-*.* @@127.0.0.1:1514;RSYSLOG_TraditionalFileFormat
-```
-
-### 与 Logstash 集成
-```ruby
-# logstash.conf
-output {
-  syslog {
-    host => "127.0.0.1"
-    port => 1514
-    protocol => "tcp"
-    facility => "local0"
-    severity => "info"
-  }
-}
-```
 
 ### 与 Docker 集成
 ```bash

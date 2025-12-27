@@ -2,10 +2,6 @@
 
 本文面向使用者与一线开发，给出在 Warp Parse 中开启/调整日志与进行常见问题定位的实操指南。
 
-```
-{YYYY-mm-dd HH:MM:SS.ssssss} [LEVEL] [target] message
-```
-
 - 目标域（targets）见《开发者文档：Logging Targets And Levels》。
 - 文件日志默认滚动：10MB/10 份，gzip 压缩。
 
