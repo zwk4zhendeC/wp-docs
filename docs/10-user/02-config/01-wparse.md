@@ -1,4 +1,4 @@
-# Wparse配置规范
+# Wparse配置
 
 完整示例（推荐默认）
 ```toml

@@ -1,6 +1,6 @@
 # Kafka 源配置
 
-本文档详细介绍如何配置和使用 warp-flow 系统的 Kafka 数据源。
+本文档详细介绍如何配置和使用 warpparse 系统的 Kafka 数据源。
 
 ## 概述
 
@@ -253,72 +253,3 @@ config = [
     "max_poll_interval_ms=600000"
 ]
 ```
-
-### 3. 内存管理
-```toml
-[sources.params_override]
-config = [
-    "queued_min_messages=100000",
-    "queued_max_messages_kbytes=1048576"
-]
-```
-
-## 监控和指标
-
-### 1. 内置指标
-Kafka 源自动收集以下指标：
-- 消费速率 (messages/second)
-- 消费延迟 (lag)
-- 连接状态
-- 错误率
-
-### 2. 标签监控
-```toml
-tags = [
-    "monitor:kafka_source",
-    "alert_on_lag:true",
-    "alert_on_error:true"
-]
-```
-
-## 故障排除
-
-### 常见问题
-
-#### 1. 连接失败
-```
-Error: Failed to connect to Kafka cluster
-```
-**解决方案**:
-- 检查 broker 地址是否正确
-- 验证网络连通性
-- 确认 Kafka 集群状态
-
-#### 2. 认证失败
-```
-Error: SASL authentication failed
-```
-**解决方案**:
-- 检查用户名密码
-- 验证 SASL 机制配置
-- 确认用户权限
-
-#### 3. 主题不存在
-```
-Error: Topic not found
-```
-**解决方案**:
-- 确认主题名称拼写
-- 检查主题是否存在
-- 验证主题访问权限
-
-#### 4. 消费者组冲突
-```
-Error: Consumer group rebalance failed
-```
-**解决方案**:
-- 确认 source 名称唯一性（消费者组 ID 自动生成为 `{source_name}_group`）
-- 调整会话超时时间
-- 检查是否有其他实例使用相同的 source 名称
-
-### 调试技巧

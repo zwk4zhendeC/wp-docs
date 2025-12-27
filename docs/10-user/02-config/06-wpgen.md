@@ -1,6 +1,6 @@
-# Wpgen
+# Wpgen配置
 
-配置写法（新）
+配置写法
 - conf/wpgen.toml（关键字段）
 ```toml
 version = "1.0"

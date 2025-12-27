@@ -34,8 +34,3 @@ framing = "line"
 ## 分帧说明
 - `line`：追加 `\n` 作为消息结束符
 - `len`：发送 `<len><space><payload>`（不追加 `\n`）
-
-## 调试建议
-- 使用 `nc -lk <port>` 简易验证接收端
-- 与内置 `tcp_src` 联调：将源端口与 sink 端口一致即可构造回环链路
-

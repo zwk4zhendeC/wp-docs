@@ -1,4 +1,4 @@
-# OML语法
+# OML 语法
 
 本文基于源码 crates/wp-oml 的解析实现（winnow 解析器组合器）梳理了 OML 的实际可用语法，并以 EBNF 形式给出。词法细节（如数据类型、JSON 路径、SQL 运算符等）复用 `wp_parser` 与 `wpl` 的既有解析能力，本文在必要处做抽象约定。
 

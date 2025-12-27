@@ -30,7 +30,7 @@ port = 1514
 protocol = "tcp"
 ```
 
-说明：代码侧仅使用 `addr/port/protocol` 三个键；文档中未出现的参数（facility/severity/hostname/...）在当前实现中不生效。
+说明：代码侧仅使用 `addr/port/protocol` 三个键；
 
 ## 可用参数（路由 `params`）
 
@@ -53,25 +53,8 @@ connect = "syslog_udp_sink"
 params = { addr = "syslog.example.com", port = 1514, protocol = "udp" }
 ```
 
-2) 高可用 TCP（主备）
-```toml
-version = "2.0"
-[sink_group]
-name = "/sink/syslog_ha"
-parallel = 2
 
-[[sink_group.sinks]]
-name = "primary"
-connect = "syslog_tcp_sink"
-params = { addr = "syslog-primary.example.com", port = 514, protocol = "tcp" }
-
-[[sink_group.sinks]]
-name = "backup"
-connect = "syslog_tcp_sink"
-params = { addr = "syslog-backup.example.com", port = 514, protocol = "tcp" }
-```
-
-3) 按条件分流
+2) 按条件分流
 ```toml
 version = "2.0"
 [sink_group]
@@ -89,8 +72,3 @@ connect = "syslog_udp_sink"
 filter = "./info_filter.wpl"
 params = { addr = "syslog-info.example.com", port = 1514, protocol = "udp" }
 ```
-
-## 故障排除与调试
-- 连接被拒绝：`nc -vz <host> <port>` 检查连通性；确认防火墙放行端口。
-- 丢包（UDP）：可切换 `protocol = "tcp"` 以换取可靠性。
-- 验证消息：`sudo tcpdump -i any -n port 514 -A` 抓包，或用 `logger -p local0.info -t warpflow "test"` 验证服务器侧。

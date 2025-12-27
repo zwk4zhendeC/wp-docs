@@ -1,5 +1,4 @@
-# defaults 与 expect
-<!-- 角色：使用配置者 | 最近验证：2025-12-11 -->
+# defaults
 
 目标
 - 配置期望（比例/阈值/窗口）并理解分母口径与忽略规则；在 CLI 中进行校验。
@@ -36,16 +35,3 @@ connect = "file_json_sink"
 ratio = 0.98   # 与 min/max 互斥
 tol   = 0.01
 ```
-
-CLI 校验
-```bash
-wproj validate sink-file -w <WR> [--stats-file ./out/stats.json] [--input-cnt N] [--json]
-```
-
-常见错误
-- `ratio/tol cannot be combined with min/max`：二选一使用。
-- 分母为 0 或样本不足：按 `min_samples` 忽略组校验（打印提示，不失败）。
-
-相关
-- 权威：`../02-config/04-sinks_config.md`
-- 设计：`../../50-dev/design/sinks_tags.md`
