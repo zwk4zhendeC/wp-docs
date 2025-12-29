@@ -82,11 +82,11 @@
 
         <div class="lang-card">
             <div class="lang-buttons">
-                <a href="/zh/" class="lang-btn">
+                <a href="#" id="zh-link" class="lang-btn">
                     <span class="lang-icon">🇨🇳</span>
                     <span>中文</span>
                 </a>
-                <a href="/en/" class="lang-btn">
+                <a href="#" id="en-link" class="lang-btn">
                     <span class="lang-icon">🇺🇸</span>
                     <span>English</span>
                 </a>
@@ -95,6 +95,18 @@
     </div>
 
     <script>
+        // Detect base path (e.g., '/wp-docs/' or '/' for root)
+        const basePath = (function() {
+            const path = window.location.pathname;
+            // If we're at /wp-docs/ or similar, use that as base
+            const match = path.match(/^(\/[^/]+)\//);
+            return match && !path.endsWith('.html') ? match[1] : '';
+        })();
+
+        // Set href for language links
+        document.getElementById('zh-link').href = basePath + '/zh/';
+        document.getElementById('en-link').href = basePath + '/en/';
+
         // Auto-redirect based on browser language
         (function() {
             const lang = navigator.language || navigator.userLanguage;
@@ -102,9 +114,9 @@
 
             setTimeout(function() {
                 if (lang.startsWith('zh')) {
-                    window.location.href = '/zh/';
+                    window.location.href = basePath + '/zh/';
                 } else {
-                    window.location.href = '/en/';
+                    window.location.href = basePath + '/en/';
                 }
             }, delay);
         })();

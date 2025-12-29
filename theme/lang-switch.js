@@ -1,23 +1,34 @@
 // Language Switcher Script
 (function() {
+    // Detect base path (e.g., '/wp-docs/' or '/' for root)
+    const basePath = (() => {
+        const path = window.location.pathname;
+        // Check if we're in a language subdirectory
+        const match = path.match(/^(\/[^/]+)?\/(zh|en)\//);
+        return match && match[1] ? match[1] : '';
+    })();
+
     // Get current language from path
     const path = window.location.pathname;
     let currentLang = 'en';
     let currentPage = '/';
 
-    if (path.match(/^\/zh\//)) {
+    // Remove base path for language detection
+    const pathWithoutBase = basePath ? path.replace(new RegExp('^' + basePath), '') : path;
+
+    if (pathWithoutBase.match(/^\/zh\//)) {
         currentLang = 'zh';
-        currentPage = path.replace(/^\/zh\//, '/');
-    } else if (path.match(/^\/en\//)) {
+        currentPage = pathWithoutBase.replace(/^\/zh\//, '/');
+    } else if (pathWithoutBase.match(/^\/en\//)) {
         currentLang = 'en';
-        currentPage = path.replace(/^\/en\//, '/');
+        currentPage = pathWithoutBase.replace(/^\/en\//, '/');
     } else {
-        currentPage = path === '/' ? '/index.html' : path;
+        currentPage = pathWithoutBase === '/' || pathWithoutBase === '' ? '/index.html' : pathWithoutBase;
     }
 
     // Build language switcher HTML
-    const zhUrl = '/zh' + currentPage;
-    const enUrl = '/en' + currentPage;
+    const zhUrl = basePath + '/zh' + currentPage;
+    const enUrl = basePath + '/en' + currentPage;
 
     const switcherHtml = `
         <div class="lang-switcher">
