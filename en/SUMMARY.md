@@ -40,6 +40,7 @@
       - [Syslog Sink](10-user/05-connectors/02-sinks/13-syslog_sink.md)
       - [Prometheus Sink](10-user/05-connectors/02-sinks/14-prometheus_sink.md)
       - [TCP Sink](10-user/05-connectors/02-sinks/15-tcp_sink.md)
+      - [VictoriaLogs](10-user/05-connectors/02-sinks/16-victorialogs.md)
   - [Troubleshooting](10-user/09-FQA/troubleshooting.md)
 
 - [Benchmark Report](20-report/benchmark.md)

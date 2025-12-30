@@ -1,4 +1,4 @@
-# TCP Sink 配置
+# TCP Sink 
 
 TCP sink 用于将数据输出到任意 TCP 服务端，支持按行或长度前缀（RFC6587 风格）分帧。
 

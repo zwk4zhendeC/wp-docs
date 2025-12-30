@@ -1,4 +1,4 @@
-# Syslog Sink 配置
+# Syslog Sink 
 
 本文档与代码实现对齐，描述 Syslog Sink 的实际可用参数与示例。
 

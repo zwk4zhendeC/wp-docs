@@ -1,4 +1,4 @@
-# Prometheus Sink 配置
+# Prometheus Sink 
 
 > **⚠️ 注意**：Prometheus Sink 当前**暂未实现**。本文档为计划功能的设计文档，实际使用时请以代码实现为准。
 
