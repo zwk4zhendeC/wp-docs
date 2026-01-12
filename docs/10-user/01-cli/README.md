@@ -108,33 +108,8 @@ graph TD
     N --> P[批处理分析]
     N --> Q[性能调优]
 
-<<<<<<< HEAD
     R[wprescue] --> S[数据恢复]
     R --> T[故障恢复]
-```
-=======
-# 生成测试数据（10000 行，3秒统计间隔）
-wpgen rule -n 10000 --stat 3
-```
-
-### 3. 运行解析
-
-```bash
-# 批处理模式运行
-wparse batch --stat 5 -p
-
-# 或使用守护进程模式（持续运行）
-wparse daemon --stat-print
-```
-
-### 4. 查看统计
-
-```bash
-# 统计源和文件型 sink 数据
-wproj stat file
-
-# 以 JSON 格式输出
-wproj stat file --output json
 ```
 
 ## 学习路径
@@ -291,4 +266,3 @@ warp-parse/
 - [配置参考](../02-config/)
 - [用户文档](../)
 - [API 文档](../03-api/)
->>>>>>> 67a6813c4c73265246df81e69b2f9addd4e01b62

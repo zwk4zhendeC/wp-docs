@@ -7,6 +7,9 @@ src = "."
 [build]
 build-dir = "../book/en"
 
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
 [output.html]
 default-theme = "ayu"
 git-repository-url = "https://github.com/wp-labs/warp-parse"
