@@ -31,6 +31,7 @@
 **返回类型**: `time`
 
 **示例**:
+
 ```oml
 occur_time : time = Now::time() ;
 ```
@@ -42,6 +43,7 @@ occur_time : time = Now::time() ;
 **返回类型**: `digit`
 
 **示例**:
+
 ```oml
 today : digit = Now::date() ;
 # 输出示例: 20251225（表示 2025 年 12 月 25 日）
@@ -54,6 +56,7 @@ today : digit = Now::date() ;
 **返回类型**: `digit`
 
 **示例**:
+
 ```oml
 current_hour : digit = Now::hour() ;
 # 输出示例: 2025122515（表示 2025 年 12 月 25 日 15 时）
@@ -83,6 +86,7 @@ result = pipe read(field) | function1 | function2(param) ;
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 encoded = pipe read(payload) | base64_encode ;
 # "hello" -> "aGVsbG8="
@@ -101,6 +105,7 @@ encoded = pipe read(payload) | base64_encode ;
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 # 标准 UTF-8 解码
 decoded = pipe read(data) | base64_decode ;
@@ -127,6 +132,7 @@ raw = pipe read(binary_data) | base64_decode(Imap) ;
 **输出**: `chars`
 
 **转义规则**:
+
 - `<` → `&lt;`
 - `>` → `&gt;`
 - `&` → `&amp;`
@@ -134,6 +140,7 @@ raw = pipe read(binary_data) | base64_decode(Imap) ;
 - `'` → `&#x27;`
 
 **示例**:
+
 ```oml
 safe_html = pipe read(user_input) | html_escape ;
 # "<script>" -> "&lt;script&gt;"
@@ -149,6 +156,7 @@ safe_html = pipe read(user_input) | html_escape ;
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 original = pipe read(escaped_html) | html_unescape ;
 # "&lt;div&gt;" -> "<div>"
@@ -164,6 +172,7 @@ original = pipe read(escaped_html) | html_unescape ;
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 json_safe = pipe read(text) | json_escape ;
 # 转义引号、反斜杠、控制字符等
@@ -179,6 +188,7 @@ json_safe = pipe read(text) | json_escape ;
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 original = pipe read(escaped_json) | json_unescape ;
 ```
@@ -193,6 +203,7 @@ original = pipe read(escaped_json) | json_unescape ;
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 escaped = pipe read(raw_string) | str_escape ;
 # 'hello"world' -> 'hello\"world'
@@ -212,6 +223,7 @@ escaped = pipe read(raw_string) | str_escape ;
 **输出**: `digit`
 
 **示例**:
+
 ```oml
 timestamp = pipe read(occur_time) | Time::to_ts ;
 # 2000-10-10 00:00:00 -> 971107200
@@ -227,6 +239,7 @@ timestamp = pipe read(occur_time) | Time::to_ts ;
 **输出**: `digit`
 
 **示例**:
+
 ```oml
 timestamp_ms = pipe read(occur_time) | Time::to_ts_ms ;
 # 2000-10-10 00:00:00 -> 971107200000
@@ -242,6 +255,7 @@ timestamp_ms = pipe read(occur_time) | Time::to_ts_ms ;
 **输出**: `digit`
 
 **示例**:
+
 ```oml
 timestamp_us = pipe read(occur_time) | Time::to_ts_us ;
 # 2000-10-10 00:00:00 -> 971107200000000
@@ -264,6 +278,7 @@ timestamp_us = pipe read(occur_time) | Time::to_ts_us ;
 **输出**: `digit`
 
 **示例**:
+
 ```oml
 # UTC 时间戳（秒）
 utc_ts = pipe read(occur_time) | Time::to_ts_zone(0, ss) ;
@@ -289,12 +304,14 @@ utc_ts_us = pipe read(occur_time) | Time::to_ts_zone(0, us) ;
 **语法**: `nth(<index>)`
 
 **参数**:
+
 - `index`: 数组索引（从 0 开始）
 
 **输入**: `array`
 **输出**: 数组元素类型
 
 **示例**:
+
 ```oml
 first_item = pipe read(items) | nth(0) ;
 third_item = pipe read(items) | nth(2) ;
@@ -307,12 +324,13 @@ third_item = pipe read(items) | nth(2) ;
 **语法**: `get(<key>)`
 
 **参数**:
-- `key`: 对象字段名
+- `path`: 对象路径，使用 `/` 分隔嵌套层级
 
 **输入**: `obj`
 **输出**: 字段值类型
 
 **示例**:
+
 ```oml
 # 获取对象的字段值
 name = pipe read(user) | get(name) ;
@@ -328,14 +346,20 @@ first_name = pipe read(users) | nth(0) | get(name) ;
 **语法**: `path(<part>)`
 
 **参数**:
+
 - `part`: 要提取的部分
   - `name`: 文件名（含扩展名）
+<<<<<<< HEAD
   - `path`: 父目录路径
+=======
+  - `path`: 目录路径
+>>>>>>> 8d2601c00a049fe07e171923a9f0d47a9f6a1f0b
 
 **输入**: `chars`
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 # 输入: "C:\Users\test\file.txt"
 filename = pipe read(file_path) | path(name) ;   # "file.txt"
@@ -349,6 +373,7 @@ parent = pipe read(file_path) | path(path) ;     # "C:/Users/test"
 **语法**: `url(<part>)`
 
 **参数**:
+
 - `part`: 要提取的部分
   - `domain`: 域名（不含端口）
   - `host`: 主机（含端口）
@@ -360,6 +385,7 @@ parent = pipe read(file_path) | path(path) ;     # "C:/Users/test"
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 # 输入: "https://api.example.com:8080/v1/users?id=1#section"
 domain = pipe read(http_url) | url(domain) ;  # "api.example.com"
@@ -376,12 +402,18 @@ params = pipe read(http_url) | url(params) ;  # "id=1"
 **语法**: `sxf_get(<field_name>)`
 
 **参数**:
+<<<<<<< HEAD
 - `field_name`: 要提取的字段名（仅支持字母和数字）
+=======
+
+- `field_name`: 要提取的字段名
+>>>>>>> 8d2601c00a049fe07e171923a9f0d47a9f6a1f0b
 
 **输入**: `chars`
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 # 从格式化文本中提取字段
 status = pipe read(log_line) | sxf_get(statusCode) ;
@@ -402,6 +434,7 @@ username = pipe read(log_line) | sxf_get(username) ;
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 ip_str = pipe read(src_ip) | to_str ;
 num_str = pipe read(count) | to_str ;
@@ -417,6 +450,7 @@ num_str = pipe read(count) | to_str ;
 **输出**: `chars`
 
 **示例**:
+
 ```oml
 # 数组转 JSON
 ports_json = pipe read(ports) | to_json ;
@@ -437,6 +471,7 @@ user_json = pipe read(user) | to_json ;
 **输出**: `digit`
 
 **示例**:
+
 ```oml
 ip_int = pipe read(src_ip) | ip4_to_int ;
 # 127.0.0.1 -> 2130706433
@@ -457,6 +492,7 @@ ip_int = pipe read(src_ip) | ip4_to_int ;
 **输出**: 原类型或跳过
 
 **示例**:
+
 ```oml
 # 如果 optional_field 为空，则不输出 result 字段
 result = pipe read(optional_field) | skip_empty ;

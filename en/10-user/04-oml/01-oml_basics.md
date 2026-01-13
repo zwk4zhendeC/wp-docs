@@ -325,7 +325,7 @@ aler* : auto = take() ; # Take all fields starting with aler
 name : fmt_example
 ---
 # Supports @ref (equivalent to read(ref)) mixed with read/get
-full = fmt("{}-{}", @user, read(city)) ;
+full = fmt("{user}-{city}", @user, read(city)) ;
 ```
 
 **Note**: `@ref` is only syntactic sugar for `read(ref)` and does not support default body.
