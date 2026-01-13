@@ -96,13 +96,25 @@ ETL 是 Extract（提取）、Transform（转换）、Load（加载）的缩写�
 │
 ├── data/              # 数据目录
 │   ├── in_dat/       # 输入数据（原始日志）
+│   │   └── gen.dat  # 生成的测试数据
 │   ├── out_dat/      # 输出数据（解析结果）
+│   │   ├── demo.json       # 所有成功解析的记录
+│   │   ├── default.dat     # 命中wpl未命中oml异常数据
+│   │   ├── error.dat       # 异常数据
+│   │   ├── miss.dat        # 未命中wpl异常数据
+│   │   ├── monitor.dat     # 监控数据
+│   │   └── residue.dat     # 残留数据（部分解析成功）
 │   ├── logs/         # 运行日志
 │   └── rescue/       # 失败数据（用于排查问题）
 │
 ├── models/            # 模型定义
 │   ├── wpl/          # WPL 解析规则
+│   │   └── wp-space/
+│   │       ├── parse.wpl    # 解析规则文件
+│   │       └── sample.dat   # 规则测试样本
 │   ├── oml/          # OML 转换规则
+│   │   └── wp-space/
+│   │       └── adm.oml      # 对象映射规则
 │   └── knowledge/    # 知识库（SQL 查询等）
 │
 └── topology/          # 拓扑配置
@@ -115,7 +127,25 @@ ETL 是 Extract（提取）、Transform（转换）、Load（加载）的缩写�
 - **conf/**：全局配置，如日志级别、性能参数
 - **connectors/**：定义如何连接数据源和目标
 - **data/**：所有数据文件的存放位置
+  - **in_dat/**：存放原始输入数据
+    - `gen.dat`：wpgen 生成的测试数据
+  - **out_dat/**：存放解析后的输出数据
+    - `all.json`：所有成功解析的记录（JSON 格式）
+    - `default.dat`：默认输出文件
+    - `error.dat`：解析过程中出错的记录
+    - `ignore.dat`：根据规则被忽略的记录
+    - `miss.dat`：缺失必需字段的记录
+    - `monitor.dat`：监控和统计数据
+    - `residue.dat`：部分字段解析成功的残留数据
+  - **logs/**：运行时日志，用于调试和排查问题
+  - **rescue/**：解析失败的原始数据，用于重新处理
 - **models/**：核心业务逻辑（WPL 规则和 OML 规则）
+  - **wpl/**：WPL 解析规则，按命名空间组织
+    - `wp-space/parse.wpl`：具体的解析规则文件
+    - `wp-space/sample.dat`：规则对应的测试样本
+  - **oml/**：OML 转换规则，按命名空间组织
+    - `wp-space/adm.oml`：对象映射和转换规则
+  - **knowledge/**：知识库，如 SQL 查询、IP 库等
 - **topology/**：数据流拓扑配置
 
 ---
