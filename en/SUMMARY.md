@@ -25,6 +25,7 @@
     - [OML Examples](10-user/04-oml/02-oml_examples.md)
     - [OML Functions Reference](10-user/04-oml/03-oml_functions.md)
     - [OML Grammar](10-user/04-oml/04-oml_grammar.md)
+    - [OML Applications](10-user/04-oml/05-oml_in_sinks.md)
   - [Connectors Management](10-user/05-connectors/README.md)
     - [Sources Configuration Guide](10-user/05-connectors/01-sources/README.md)
       - [Sources Basics](10-user/05-connectors/01-sources/01-sources_basics.md)

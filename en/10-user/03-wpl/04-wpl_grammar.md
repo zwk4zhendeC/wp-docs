@@ -63,7 +63,7 @@ data_type        = builtin_type | ns_type | array_type ;
 
 builtin_type     = "auto" | "bool" | "chars" | "symbol" | "peek_symbol"
                    | "digit" | "float" | "_" | "sn"
-                   | "time" | "time_iso" | "time_3339" | "time_2822" | "time_timestamp"
+                   | "time" | "time/clf" | "time_iso" | "time_3339" | "time_2822" | "time_timestamp"
                    | "ip" | "ip_net" | "domain" | "email" | "port"
                    | "hex" | "base64"
                    | "kv" | "json" | "exact_json"
@@ -92,10 +92,21 @@ sep_char         = '\\' , any_char ;
 ; Field-level pipe: function call or nested group
 pipe             = "|" ws? ( fun_call | group ) ;
 
-; Preset functions (wpl_fun):
-; f_ prefix indicates field set operations, no prefix indicates direct functions
-fun_call         = f_has | f_chars_has | f_chars_not_has | f_chars_in
-                   | f_digit_has | f_digit_in | f_ip_in | chars_unescape ;
+; Preset functions (wpl_fun.rs):
+; - Selector functions: take, last
+; - f_ prefix indicates field set operations (requires field name)
+; - No prefix indicates active field operations
+; - Transform functions: json_unescape, base64_decode
+fun_call         = selector_fun | target_fun | active_fun | transform_fun ;
+
+; Selector functions
+selector_fun     = take_fun | last_fun ;
+take_fun         = "take" "(" ws? key ws? ")" ;
+last_fun         = "last" "(" ws? ")" ;
+
+; Field set operation functions (f_ prefix)
+target_fun       = f_has | f_chars_has | f_chars_not_has | f_chars_in
+                 | f_digit_has | f_digit_in | f_ip_in ;
 f_has            = "f_has" "(" ws? key ws? ")" ;
 f_chars_has      = "f_chars_has" "(" ws? key ws? "," ws? path ws? ")" ;
 f_chars_not_has  = "f_chars_not_has" "(" ws? key ws? "," ws? path ws? ")" ;
@@ -103,7 +114,22 @@ f_chars_in       = "f_chars_in" "(" ws? key ws? "," ws? path_array ws? ")" ;
 f_digit_has      = "f_digit_has" "(" ws? key ws? "," ws? number ws? ")" ;
 f_digit_in       = "f_digit_in" "(" ws? key ws? "," ws? number_array ws? ")" ;
 f_ip_in          = "f_ip_in" "(" ws? key ws? "," ws? ip_array ws? ")" ;
-chars_unescape   = "chars_unescape" "(" ws? free_string ws? ")" ; ; Supports json/url/html etc.
+
+; Active field operation functions (no prefix)
+active_fun       = has_fun | chars_has | chars_not_has | chars_in
+                 | digit_has | digit_in | ip_in ;
+has_fun          = "has" "(" ws? ")" ;
+chars_has        = "chars_has" "(" ws? path ws? ")" ;
+chars_not_has    = "chars_not_has" "(" ws? path ws? ")" ;
+chars_in         = "chars_in" "(" ws? path_array ws? ")" ;
+digit_has        = "digit_has" "(" ws? number ws? ")" ;
+digit_in         = "digit_in" "(" ws? number_array ws? ")" ;
+ip_in            = "ip_in" "(" ws? ip_array ws? ")" ;
+
+; Transform functions
+transform_fun    = json_unescape | base64_decode ;
+json_unescape    = "json_unescape" "(" ws? ")" ;
+base64_decode    = "base64_decode" "(" ws? ")" ;
 
 path_array       = "[" ws? path { ws? "," ws? path } ws? "]" ;
 number_array     = "[" ws? number { ws? "," ws? number } ws? "]" ;
