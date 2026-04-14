@@ -1,0 +1,869 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>OML 函数参考 - Warp Parse 文档 [ALPHA]</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../../css/general-2459343d.css">
+        <link rel="stylesheet" href="../../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../../theme/lang-switch.css">
+        <link rel="stylesheet" href="../../../theme/version-badge.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../../searchindex-9765f1b3.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc-e4b081e6.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Warp Parse 文档 [ALPHA]</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/wp-labs/warp-parse" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="oml-函数参考"><a class="header" href="#oml-函数参考">OML 函数参考</a></h1>
+<p>本文档提供所有内置函数和管道函数的完整参考，采用标准化格式便于查找。</p>
+<hr>
+<h2 id="-详细文档导航"><a class="header" href="#-详细文档导航">📚 详细文档导航</a></h2>
+<ul>
+<li><a href="#内置函数">内置函数</a> - 可直接使用的函数</li>
+<li><a href="#管道函数">管道函数</a> - 通过管道操作符调用的函数
+<ul>
+<li><a href="#编码函数">编码函数</a> - Base64 编解码</li>
+<li><a href="#转义函数">转义函数</a> - HTML/JSON/字符串转义</li>
+<li><a href="#时间函数">时间函数</a> - 时间戳转换</li>
+<li><a href="#数据访问函数">数据访问函数</a> - 数组/对象/URL/路径访问</li>
+<li><a href="#转换函数">转换函数</a> - 类型转换</li>
+<li><a href="#控制函数">控制函数</a> - 流程控制</li>
+</ul>
+</li>
+<li><a href="#使用示例">使用示例</a> - 完整示例</li>
+</ul>
+<hr>
+<h2 id="-oml-所有函数速查"><a class="header" href="#-oml-所有函数速查">📋 OML 所有函数速查</a></h2>
+<h3 id="内置函数"><a class="header" href="#内置函数">内置函数</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>函数</th><th>说明</th><th>示例</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#calc"><code>calc(...)</code></a></td><td>执行显式算术表达式</td><td><code>score = calc(read(cpu) * 0.7 + read(mem) * 0.3) ;</code></td></tr>
+<tr><td><a href="#lookup_nocase"><code>lookup_nocase(...)</code></a></td><td>对静态 object 做忽略大小写查表</td><td><code>score = lookup_nocase(status_score, read(status), 40.0) ;</code></td></tr>
+<tr><td><a href="#nowtime-1"><code>Now::time()</code></a></td><td>获取当前时间</td><td><code>event_time = Now::time() ;</code></td></tr>
+<tr><td><a href="#nowdate-1"><code>Now::date()</code></a></td><td>获取当前日期（YYYYMMDD）</td><td><code>today = Now::date() ;</code></td></tr>
+<tr><td><a href="#nowhour-1"><code>Now::hour()</code></a></td><td>获取当前小时（YYYYMMDDHH）</td><td><code>current_hour = Now::hour() ;</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="管道函数"><a class="header" href="#管道函数">管道函数</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>功能分类</th><th>函数</th><th>说明</th><th>示例</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>编码</strong></td><td><a href="#base64_encode-1"><code>base64_encode</code></a></td><td>Base64 编码</td><td><code>read(data) | base64_encode</code></td></tr>
+<tr><td></td><td><a href="#base64_decode-1"><code>base64_decode</code></a></td><td>Base64 解码（支持 Utf8/Gbk）</td><td><code>read(data) | base64_decode(Utf8)</code></td></tr>
+<tr><td><strong>转义</strong></td><td><a href="#html_escape"><code>html_escape</code></a></td><td>HTML 转义</td><td><code>read(text) | html_escape</code></td></tr>
+<tr><td></td><td><a href="#html_unescape"><code>html_unescape</code></a></td><td>HTML 反转义</td><td><code>read(html) | html_unescape</code></td></tr>
+<tr><td></td><td><a href="#json_escape"><code>json_escape</code></a></td><td>JSON 转义</td><td><code>read(text) | json_escape</code></td></tr>
+<tr><td></td><td><a href="#json_unescape"><code>json_unescape</code></a></td><td>JSON 反转义</td><td><code>read(json) | json_unescape</code></td></tr>
+<tr><td></td><td><a href="#str_escape"><code>str_escape</code></a></td><td>字符串转义</td><td><code>read(str) | str_escape</code></td></tr>
+<tr><td><strong>时间</strong></td><td><a href="#timeto_ts-1"><code>Time::to_ts</code></a></td><td>转时间戳（秒，UTC+8）</td><td><code>read(time) | Time::to_ts</code></td></tr>
+<tr><td></td><td><a href="#timeto_ts_ms-1"><code>Time::to_ts_ms</code></a></td><td>转时间戳（毫秒，UTC+8）</td><td><code>read(time) | Time::to_ts_ms</code></td></tr>
+<tr><td></td><td><a href="#timeto_ts_us-1"><code>Time::to_ts_us</code></a></td><td>转时间戳（微秒，UTC+8）</td><td><code>read(time) | Time::to_ts_us</code></td></tr>
+<tr><td></td><td><a href="#timeto_ts_zone-1"><code>Time::to_ts_zone</code></a></td><td>转指定时区时间戳</td><td><code>read(time) | Time::to_ts_zone(0, ms)</code></td></tr>
+<tr><td><strong>数据访问</strong></td><td><a href="#nth-1"><code>nth(index)</code></a></td><td>获取数组元素</td><td><code>read(arr) | nth(0)</code></td></tr>
+<tr><td></td><td><a href="#get-1"><code>get(key)</code></a></td><td>获取对象字段</td><td><code>read(obj) | get(name)</code></td></tr>
+<tr><td></td><td><a href="#path-1"><code>path(part)</code></a></td><td>提取文件路径（name/path）</td><td><code>read(path) | path(name)</code></td></tr>
+<tr><td></td><td><a href="#url-1"><code>url(part)</code></a></td><td>提取 URL（domain/host/path/params/uri）</td><td><code>read(url) | url(domain)</code></td></tr>
+<tr><td></td><td><a href="#sxf_get"><code>sxf_get(field)</code></a></td><td>提取特殊格式字段</td><td><code>read(log) | sxf_get(status)</code></td></tr>
+<tr><td><strong>转换</strong></td><td><a href="#to_str-1"><code>to_str</code></a></td><td>转换为字符串</td><td><code>read(ip) | to_str</code></td></tr>
+<tr><td></td><td><a href="#to_json-1"><code>to_json</code></a></td><td>转换为 JSON</td><td><code>read(arr) | to_json</code></td></tr>
+<tr><td></td><td><a href="#ip4_to_int"><code>ip4_to_int</code></a></td><td>IPv4 转整数</td><td><code>read(ip) | ip4_to_int</code></td></tr>
+<tr><td><strong>控制</strong></td><td><a href="#skip_empty-1"><code>skip_empty</code></a></td><td>跳过空值</td><td><code>read(field) | skip_empty</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="常用场景速查"><a class="header" href="#常用场景速查">常用场景速查</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>我想做什么</th><th>使用方法</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>获取当前时间</strong></td><td><code>event_time = Now::time() ;</code></td></tr>
+<tr><td><strong>时间转时间戳</strong></td><td><code>ts = read(time) | Time::to_ts_zone(0, ms) ;</code></td></tr>
+<tr><td><strong>Base64 解码</strong></td><td><code>decoded = read(data) | base64_decode(Utf8) ;</code></td></tr>
+<tr><td><strong>HTML 转义</strong></td><td><code>escaped = read(text) | html_escape ;</code></td></tr>
+<tr><td><strong>解析 URL</strong></td><td><code>domain = read(url) | url(domain) ;</code></td></tr>
+<tr><td><strong>提取文件名</strong></td><td><code>filename = read(path) | path(name) ;</code></td></tr>
+<tr><td><strong>获取数组第一个元素</strong></td><td><code>first = read(arr) | nth(0) ;</code></td></tr>
+<tr><td><strong>获取对象字段</strong></td><td><code>name = read(obj) | get(name) ;</code></td></tr>
+<tr><td><strong>IP 转整数</strong></td><td><code>ip_int = read(ip) | ip4_to_int ;</code></td></tr>
+<tr><td><strong>跳过空值</strong></td><td><code>result = read(field) | skip_empty ;</code></td></tr>
+<tr><td><strong>链式处理</strong></td><td><code>result = read(data) | to_json | base64_encode ;</code></td></tr>
+<tr><td><strong>字符串格式化</strong></td><td><code>msg = fmt("{}:{}", @ip, @port) ;</code></td></tr>
+<tr><td><strong>条件匹配</strong></td><td><code>level = match read(status) { ... } ;</code></td></tr>
+<tr><td><strong>忽略大小写多值匹配</strong></td><td><code>iequals_any('success', 'ok', 'done') =&gt; chars(good)</code></td></tr>
+<tr><td><strong>静态字典查表</strong></td><td><code>lookup_nocase(status_score, read(status), 40.0)</code></td></tr>
+<tr><td><strong>创建对象</strong></td><td><code>info : obj = object { ... } ;</code></td></tr>
+<tr><td><strong>创建数组</strong></td><td><code>items : array = collect read(keys:[...]) ;</code></td></tr>
+<tr><td><strong>提供默认值</strong></td><td><code>country = read(country) { _ : chars(CN) } ;</code></td></tr>
+<tr><td><strong>选择性读取</strong></td><td><code>id = read(option:[id, uid, user_id]) ;</code></td></tr>
+<tr><td><strong>批量收集</strong></td><td><code>metrics = collect read(keys:[cpu_*]) ;</code></td></tr>
+<tr><td><strong>算术计算</strong></td><td><code>risk = calc(read(cpu) * 0.7 + read(mem) * 0.3) ;</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="内置函数-1"><a class="header" href="#内置函数-1">内置函数</a></h2>
+<p>内置函数可以直接在赋值表达式中使用，无需 <code>pipe</code> 关键字。</p>
+<h3 id="calc"><a class="header" href="#calc">calc(…)</a></h3>
+<p>执行显式算术表达式。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">calc(&lt;expr&gt;)
+</code></pre>
+<p><strong>支持能力</strong>：</p>
+<ul>
+<li>运算符：<code>+ - * / %</code></li>
+<li>函数：<code>abs(...)</code>、<code>round(...)</code>、<code>floor(...)</code>、<code>ceil(...)</code></li>
+<li>操作数：数值字面量、<code>read(...)</code>、<code>take(...)</code>、<code>@field</code></li>
+</ul>
+<p><strong>返回类型</strong>：</p>
+<ul>
+<li><code>+ - *</code>：若存在浮点操作数则返回 <code>float</code>，否则返回 <code>digit</code></li>
+<li><code>/</code>：始终返回 <code>float</code></li>
+<li><code>%</code>：仅支持整数取模，返回 <code>digit</code></li>
+</ul>
+<p><strong>失败行为</strong>：</p>
+<ul>
+<li>除零、字段缺失、非数值输入、浮点 <code>%</code>、整数溢出、<code>NaN/inf</code> 都返回 <code>ignore</code></li>
+</ul>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">risk_score : float = calc(read(cpu) * 0.7 + read(mem) * 0.3) ;
+delta      : digit = calc(read(cur) - read(prev)) ;
+distance   : float = calc(abs(read(actual) - read(expect))) ;
+error_pct  : digit = calc(round((read(err_cnt) * 100) / read(total_cnt))) ;
+</code></pre>
+<hr>
+<h3 id="lookup_nocase"><a class="header" href="#lookup_nocase">lookup_nocase(…)</a></h3>
+<p>基于 <code>static</code> 中定义的 object 做忽略大小写查表。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">lookup_nocase(&lt;dict_symbol&gt;, &lt;key_expr&gt;, &lt;default_expr&gt;)
+</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>dict_symbol</code>：<code>static</code> 中定义的 object 符号</li>
+<li><code>key_expr</code>：待查 key，通常是 <code>read(...)</code></li>
+<li><code>default_expr</code>：未命中时返回的默认值</li>
+</ul>
+<p><strong>查表规则</strong>：</p>
+<ul>
+<li>key 会先做 <code>trim + lowercase</code></li>
+<li>命中后返回字典中的对应值</li>
+<li>未命中或 key 不是字符串时，返回 <code>default_expr</code></li>
+</ul>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">static {
+    status_score = object {
+        error = float(90.0);
+        warning = float(70.0);
+        success = float(20.0);
+    };
+}
+
+risk_score : float = lookup_nocase(status_score, read(status), 40.0) ;
+</code></pre>
+<p><strong>更多说明</strong>：</p>
+<ul>
+<li><code>iequals_any(...)</code> 详见 <a href="./functions/match_functions.html">functions/match_functions.md</a></li>
+<li><code>lookup_nocase(...)</code> 详见 <a href="./functions/lookup_nocase.html">functions/lookup_nocase.md</a></li>
+</ul>
+<hr>
+<h3 id="nowtime"><a class="header" href="#nowtime">Now::time()</a></h3>
+<p>获取当前时间。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">Now::time()
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>返回类型</strong>：<code>time</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">event_time : time = Now::time() ;
+# 输出：2024-01-15 14:30:45
+</code></pre>
+<hr>
+<h3 id="nowdate"><a class="header" href="#nowdate">Now::date()</a></h3>
+<p>获取当前日期，格式为 <code>YYYYMMDD</code> 的整数。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">Now::date()
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>返回类型</strong>：<code>digit</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">today : digit = Now::date() ;
+# 输出：20240115
+</code></pre>
+<hr>
+<h3 id="nowhour"><a class="header" href="#nowhour">Now::hour()</a></h3>
+<p>获取当前时间精确到小时，格式为 <code>YYYYMMDDHH</code> 的整数。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">Now::hour()
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>返回类型</strong>：<code>digit</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">current_hour : digit = Now::hour() ;
+# 输出：2024011514
+</code></pre>
+<hr>
+<h2 id="管道函数-1"><a class="header" href="#管道函数-1">管道函数</a></h2>
+<p>管道函数通过 <code>pipe</code> 关键字和 <code>|</code> 操作符链式调用（<code>pipe</code> 关键字可省略）。</p>
+<p><strong>基本语法</strong>：</p>
+<pre><code class="language-oml"># 使用 pipe 关键字
+result = pipe read(field) | function1 | function2(param) ;
+
+# 省略 pipe 关键字
+result = read(field) | function1 | function2(param) ;
+</code></pre>
+<hr>
+<h2 id="编码函数"><a class="header" href="#编码函数">编码函数</a></h2>
+<h3 id="base64_encode"><a class="header" href="#base64_encode">base64_encode</a></h3>
+<p>将字符串进行 Base64 编码。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| base64_encode
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">encoded = read(payload) | base64_encode ;
+# 输入："Hello, OML!"
+# 输出："SGVsbG8sIE9NTCE="
+</code></pre>
+<hr>
+<h3 id="base64_decode"><a class="header" href="#base64_decode">base64_decode</a></h3>
+<p>将 Base64 编码的字符串解码。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| base64_decode
+| base64_decode(&lt;encoding&gt;)
+</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>encoding</code>（可选）：字符编码类型，默认为 <code>Utf8</code></li>
+</ul>
+<p><strong>支持的编码</strong>：</p>
+<ul>
+<li><code>Utf8</code> - UTF-8 编码（默认）</li>
+<li><code>Gbk</code> - GBK 中文编码</li>
+<li><code>Imap</code> - IMAP Base64 变体（将非 ASCII 字节转义为 <code>\xNN</code> 格式）</li>
+<li>更多编码请参阅源码文档</li>
+</ul>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml"># 标准 UTF-8 解码
+decoded = read(data) | base64_decode ;
+# 输入："SGVsbG8sIE9NTCE="
+# 输出："Hello, OML!"
+
+# GBK 中文解码
+gbk_text = read(gbk_data) | base64_decode(Gbk) ;
+
+# IMAP 变体解码（处理二进制数据）
+raw = read(binary_data) | base64_decode(Imap) ;
+</code></pre>
+<hr>
+<h2 id="转义函数"><a class="header" href="#转义函数">转义函数</a></h2>
+<h3 id="html_escape"><a class="header" href="#html_escape">html_escape</a></h3>
+<p>对 HTML 特殊字符进行转义。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| html_escape
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>转义规则</strong>：</p>
+<ul>
+<li><code>&lt;</code> → <code>&amp;lt;</code></li>
+<li><code>&gt;</code> → <code>&amp;gt;</code></li>
+<li><code>&amp;</code> → <code>&amp;amp;</code></li>
+<li><code>"</code> → <code>&amp;quot;</code></li>
+<li><code>'</code> → <code>&amp;#x27;</code></li>
+</ul>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">safe_html = read(user_input) | html_escape ;
+# 输入："&lt;script&gt;alert('xss')&lt;/script&gt;"
+# 输出："&amp;lt;script&amp;gt;alert(&amp;#x27;xss&amp;#x27;)&amp;lt;/script&amp;gt;"
+</code></pre>
+<hr>
+<h3 id="html_unescape"><a class="header" href="#html_unescape">html_unescape</a></h3>
+<p>将 HTML 实体还原为原始字符。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| html_unescape
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">original = read(escaped_html) | html_unescape ;
+# 输入："&amp;lt;div&amp;gt;Hello&amp;lt;/div&amp;gt;"
+# 输出："&lt;div&gt;Hello&lt;/div&gt;"
+</code></pre>
+<hr>
+<h3 id="json_escape"><a class="header" href="#json_escape">json_escape</a></h3>
+<p>对 JSON 字符串中的特殊字符进行转义。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| json_escape
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">json_safe = read(text) | json_escape ;
+# 转义引号、反斜杠、换行符等 JSON 特殊字符
+</code></pre>
+<hr>
+<h3 id="json_unescape"><a class="header" href="#json_unescape">json_unescape</a></h3>
+<p>将 JSON 转义序列还原为原始字符。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| json_unescape
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">original = read(escaped_json) | json_unescape ;
+# 还原 \n、\t、\"等转义序列
+</code></pre>
+<hr>
+<h3 id="str_escape"><a class="header" href="#str_escape">str_escape</a></h3>
+<p>对字符串中的特殊字符进行转义（主要是引号和反斜杠）。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| str_escape
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">escaped = read(raw_string) | str_escape ;
+# 输入：'hello"world'
+# 输出：'hello\"world'
+</code></pre>
+<hr>
+<h2 id="时间函数"><a class="header" href="#时间函数">时间函数</a></h2>
+<h3 id="timeto_ts"><a class="header" href="#timeto_ts">Time::to_ts</a></h3>
+<p>将时间转换为 Unix 时间戳（秒），使用 UTC+8 时区。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| Time::to_ts
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：<code>time</code>
+<strong>输出类型</strong>：<code>digit</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">timestamp = read(occur_time) | Time::to_ts ;
+# 输入：2024-01-15 14:30:00
+# 输出：1705304400（UTC+8）
+</code></pre>
+<hr>
+<h3 id="timeto_ts_ms"><a class="header" href="#timeto_ts_ms">Time::to_ts_ms</a></h3>
+<p>将时间转换为 Unix 时间戳（毫秒），使用 UTC+8 时区。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| Time::to_ts_ms
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：<code>time</code>
+<strong>输出类型</strong>：<code>digit</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">timestamp_ms = read(occur_time) | Time::to_ts_ms ;
+# 输入：2024-01-15 14:30:00
+# 输出：1705304400000
+</code></pre>
+<hr>
+<h3 id="timeto_ts_us"><a class="header" href="#timeto_ts_us">Time::to_ts_us</a></h3>
+<p>将时间转换为 Unix 时间戳（微秒），使用 UTC+8 时区。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| Time::to_ts_us
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：<code>time</code>
+<strong>输出类型</strong>：<code>digit</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">timestamp_us = read(occur_time) | Time::to_ts_us ;
+# 输入：2024-01-15 14:30:00
+# 输出：1705304400000000
+</code></pre>
+<hr>
+<h3 id="timeto_ts_zone"><a class="header" href="#timeto_ts_zone">Time::to_ts_zone</a></h3>
+<p>将时间转换为指定时区的 Unix 时间戳。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| Time::to_ts_zone(&lt;timezone_offset&gt;, &lt;unit&gt;)
+</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>timezone_offset</code>：时区偏移（小时）
+<ul>
+<li><code>0</code>：UTC</li>
+<li><code>8</code>：UTC+8（北京时间）</li>
+<li><code>-5</code>：UTC-5（美东时间）</li>
+</ul>
+</li>
+<li><code>unit</code>：时间戳单位
+<ul>
+<li><code>s</code> 或 <code>ss</code>：秒</li>
+<li><code>ms</code>：毫秒</li>
+<li><code>us</code>：微秒</li>
+</ul>
+</li>
+</ul>
+<p><strong>输入类型</strong>：<code>time</code>
+<strong>输出类型</strong>：<code>digit</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml"># UTC 时间戳（秒）
+utc_ts = read(occur_time) | Time::to_ts_zone(0, s) ;
+
+# UTC+8 时间戳（毫秒）
+beijing_ts_ms = read(occur_time) | Time::to_ts_zone(8, ms) ;
+
+# UTC-5 时间戳（秒）
+eastern_ts = read(occur_time) | Time::to_ts_zone(-5, ss) ;
+
+# UTC 时间戳（微秒）
+utc_ts_us = read(occur_time) | Time::to_ts_zone(0, us) ;
+</code></pre>
+<hr>
+<h2 id="数据访问函数"><a class="header" href="#数据访问函数">数据访问函数</a></h2>
+<h3 id="nth"><a class="header" href="#nth">nth</a></h3>
+<p>获取数组中指定索引的元素。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| nth(&lt;index&gt;)
+</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>index</code>：数组索引（从 0 开始）</li>
+</ul>
+<p><strong>输入类型</strong>：<code>array</code>
+<strong>输出类型</strong>：元素类型</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">first_item = read(items) | nth(0) ;
+second_item = read(items) | nth(1) ;
+# 输入：[10, 20, 30]
+# nth(0) 输出：10
+# nth(1) 输出：20
+</code></pre>
+<hr>
+<h3 id="get"><a class="header" href="#get">get</a></h3>
+<p>获取对象中指定键的值。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| get(&lt;key&gt;)
+</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>key</code>：对象的字段名</li>
+</ul>
+<p><strong>输入类型</strong>：<code>obj</code>
+<strong>输出类型</strong>：字段值类型</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml"># 获取对象的字段
+name = read(user) | get(name) ;
+
+# 链式调用
+first_name = read(users) | nth(0) | get(name) ;
+# 输入：[{"name": "John", "age": 30}, {"name": "Jane", "age": 25}]
+# 输出："John"
+</code></pre>
+<hr>
+<h3 id="path"><a class="header" href="#path">path</a></h3>
+<p>从文件路径中提取指定部分。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| path(&lt;part&gt;)
+</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>part</code>：要提取的部分
+<ul>
+<li><code>name</code>：文件名（含扩展名）</li>
+<li><code>path</code>：目录路径</li>
+</ul>
+</li>
+</ul>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml"># 输入："C:\Users\test\file.txt"
+filename = read(file_path) | path(name) ;
+# 输出："file.txt"
+
+parent = read(file_path) | path(path) ;
+# 输出："C:/Users/test"
+</code></pre>
+<hr>
+<h3 id="url"><a class="header" href="#url">url</a></h3>
+<p>从 URL 中提取指定部分。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| url(&lt;part&gt;)
+</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>part</code>：要提取的部分
+<ul>
+<li><code>domain</code>：域名（不含端口）</li>
+<li><code>host</code>：主机（含端口）</li>
+<li><code>path</code>：路径</li>
+<li><code>uri</code>：完整 URI（路径 + 查询 + 片段）</li>
+<li><code>params</code>：查询参数</li>
+</ul>
+</li>
+</ul>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml"># 输入："https://api.example.com:8080/v1/users?id=1&amp;type=admin#section"
+
+domain = read(http_url) | url(domain) ;
+# 输出："api.example.com"
+
+host = read(http_url) | url(host) ;
+# 输出："api.example.com:8080"
+
+path = read(http_url) | url(path) ;
+# 输出："/v1/users"
+
+uri = read(http_url) | url(uri) ;
+# 输出："/v1/users?id=1&amp;type=admin#section"
+
+params = read(http_url) | url(params) ;
+# 输出："id=1&amp;type=admin"
+</code></pre>
+<hr>
+<h3 id="sxf_get"><a class="header" href="#sxf_get">sxf_get</a></h3>
+<p>从特殊格式的文本中提取字段值。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| sxf_get(&lt;field_name&gt;)
+</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>field_name</code>：要提取的字段名</li>
+</ul>
+<p><strong>输入类型</strong>：<code>chars</code>
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml"># 从格式化文本中提取字段
+status = read(log_line) | sxf_get(statusCode) ;
+username = read(log_line) | sxf_get(username) ;
+</code></pre>
+<hr>
+<h2 id="转换函数"><a class="header" href="#转换函数">转换函数</a></h2>
+<h3 id="to_str"><a class="header" href="#to_str">to_str</a></h3>
+<p>将值转换为字符串。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| to_str
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：任意类型
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">ip_str = read(src_ip) | to_str ;
+# 输入：192.168.1.100（IP 类型）
+# 输出："192.168.1.100"
+
+num_str = read(count) | to_str ;
+# 输入：42（digit 类型）
+# 输出："42"
+</code></pre>
+<hr>
+<h3 id="to_json"><a class="header" href="#to_json">to_json</a></h3>
+<p>将值转换为 JSON 字符串。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| to_json
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：任意类型
+<strong>输出类型</strong>：<code>chars</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml"># 数组转 JSON
+ports_json = read(ports) | to_json ;
+# 输入：[80, 443]
+# 输出："[80,443]"
+
+# 对象转 JSON
+user_json = read(user) | to_json ;
+# 输入：{name: "John", age: 30}
+# 输出：'{"name":"John","age":30}'
+</code></pre>
+<hr>
+<h3 id="ip4_to_int"><a class="header" href="#ip4_to_int">ip4_to_int</a></h3>
+<p>将 IPv4 地址转换为整数。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| ip4_to_int
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：<code>ip</code> 或 <code>chars</code>
+<strong>输出类型</strong>：<code>digit</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml">ip_int = read(src_ip) | ip4_to_int ;
+# 输入：192.168.1.100
+# 输出：3232235876
+
+# 用于 IP 范围比较
+ip_int = read(src_ip) | ip4_to_int ;
+in_range = match read(ip_int) {
+    in (digit(3232235776), digit(3232236031)) =&gt; chars(True) ;
+    _ =&gt; chars(False) ;
+} ;
+</code></pre>
+<hr>
+<h2 id="控制函数"><a class="header" href="#控制函数">控制函数</a></h2>
+<h3 id="skip_empty"><a class="header" href="#skip_empty">skip_empty</a></h3>
+<p>如果输入值为空，则跳过该字段的输出。</p>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-oml">| skip_empty
+</code></pre>
+<p><strong>参数</strong>：无</p>
+<p><strong>输入类型</strong>：任意类型
+<strong>输出类型</strong>：原类型或跳过</p>
+<p><strong>何时被视为“空“</strong>：</p>
+<ul>
+<li>空字符串 <code>""</code></li>
+<li>空数组 <code>[]</code></li>
+<li>数值 <code>0</code></li>
+<li>空对象 <code>{}</code></li>
+</ul>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-oml"># 如果 optional_field 为空，则不输出 result 字段
+result = read(optional_field) | skip_empty ;
+
+# 常用于过滤空数组
+items = read(items_array) | skip_empty ;
+</code></pre>
+<hr>
+<hr>
+<h2 id="下一步"><a class="header" href="#下一步">下一步</a></h2>
+<ul>
+<li><strong><a href="./07-complete-example.html">🌟 完整功能示例</a></strong> - 查看所有功能的完整演示</li>
+<li><a href="./03-practical-guide.html">实战指南</a> - 查看实际应用场景</li>
+<li><a href="./02-core-concepts.html">核心概念</a> - 深入理解函数工作原理</li>
+<li><a href="./01-quickstart.html">快速入门</a> - 回顾基础用法</li>
+<li><a href="./06-grammar-reference.html">语法参考</a> - 查看完整语法定义</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../10-user/04-oml/03-practical-guide.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../../10-user/04-oml/05-integration.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../10-user/04-oml/03-practical-guide.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../../10-user/04-oml/05-integration.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../../mark-09e88c2c.min.js"></script>
+        <script src="../../searcher-c2a407aa.js"></script>
+
+        <script src="../../clipboard-1626706a.min.js"></script>
+        <script src="../../highlight-abc7f01d.js"></script>
+        <script src="../../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../../theme/lang-switch.js"></script>
+        <script src="../../../theme/version-badge.js"></script>
+        <script src="../../mermaid-eefea253.min.js"></script>
+        <script src="../../mermaid-init-ccf746f1.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
